@@ -1,7 +1,7 @@
 import paho.mqtt.client as mqtt
 import time
 import json
-from proceso import cont,muestra
+from proceso import muestra
 
 def on_connect(client, userdata, flags, rc):
       if rc==0:
@@ -15,13 +15,20 @@ def on_log(client,userdata,level,buf):
 def on_message(client, userdata, message):
     #print(msg.topic+" "+str(msg.payload))
     #print(type(message.payload.decode("utf-8")))
-    message_n=(json.loads(message.payload.decode("utf-8")))['objects']  
-    print(message_n)
-    oid=message_n[0]['oid']
-    print("__________________________")
-    n=cont(message_n)
-    print(n)
-    muestra(n,message_n)
+    try:
+        message_o = json.loads(message.payload.decode("utf-8"))
+        print(message_o)
+        message_n=(json.loads(message.payload.decode("utf-8")))['objects']  
+        print(message_n)
+        oid=message_n[0]['oid']
+        print("__________________________")
+        pro_message(message_n)
+    except IndexError:
+        print("No hay personas haciendo cola en la caja.")
+
+def pro_message(mensaje):
+    muestra(mensaje)
+    print("::__________________________::")
 
 def inicio(broker,tiempo=15):
      #broker="192.168.0.104"
