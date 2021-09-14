@@ -25,7 +25,7 @@ SECRET_KEY = 'm86n5^)^3(@+02t^=e20gbrty%)2il8-g0r!pk@ncn7g!_nulm'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'modulos.Camaras',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +56,9 @@ ROOT_URLCONF = 'WEB_INT.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            "C:/Users/michluna/Desktop/PROYECTOS/MERAKI/MV_SENSE/Meraki_mv/WEB_INT/Templates"
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,7 +72,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'WEB_INT.wsgi.application'
-
+ASGI_APPLICATION = 'WEB_INT.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
