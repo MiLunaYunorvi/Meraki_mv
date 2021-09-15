@@ -1,7 +1,7 @@
 import paho.mqtt.client as mqtt
 import time
 import json
-from proceso import muestra
+from proceso import muestra_general,muestra_caja
 
 def on_connect(client, userdata, flags, rc):
       if rc==0:
@@ -12,23 +12,42 @@ def on_connect(client, userdata, flags, rc):
 def on_log(client,userdata,level,buf):
       print("log: ",buf)
 
+opcion=''
+
 def on_message(client, userdata, message):
+    global opcion
     #print(msg.topic+" "+str(msg.payload))
     #print(type(message.payload.decode("utf-8")))
     try:
         message_o = json.loads(message.payload.decode("utf-8"))
         print(message_o)
-        message_n=(json.loads(message.payload.decode("utf-8")))['objects']  
+        
+        if 'objects' in message_o:
+            opcion=1
+        else:
+            opcion=2
+        mues_datos(message_o,opcion)
+    except IndexError:
+        print("No hay personas haciendo cola en la caja.")
+    
+def mues_datos(mensaje_cod,n):
+    if n==1:
+        message_n=mensaje_cod['objects']  
         print(message_n)
         oid=message_n[0]['oid']
         print("__________________________")
-        pro_message(message_n)
-    except IndexError:
-        print("No hay personas haciendo cola en la caja.")
+        
+    if n==2:
+        message_n=mensaje_cod['counts']
 
-def pro_message(mensaje):
-    muestra(mensaje)
-    print("::__________________________::")
+    pro_message(message_n,n)
+
+def pro_message(mensaje,n):
+    if n==1:
+        muestra_general(mensaje)
+        print("::__________________________::")
+    if n==2:
+        muestra_caja(mensaje)
 
 def inicio(broker,tiempo=15):
      #broker="192.168.0.104"
@@ -39,7 +58,7 @@ def inicio(broker,tiempo=15):
      print("Connecting to broker: ",broker)
      client.connect(broker)
      client.loop_start()
-     client.subscribe("/merakimv/Q2FV-NX7G-MNB2/raw_detections")
+     client.subscribe("/merakimv/Q2FV-NX7G-MNB2/779685685488517302")
      time.sleep(tiempo)
      client.loop_stop()
      client.disconnect()

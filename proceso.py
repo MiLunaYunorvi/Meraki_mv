@@ -12,14 +12,25 @@ class Person():
 
 
 
-def muestra(data):
+def muestra_general(data):
       n=len(data)
+      print("NÚMERO DE PERSONAS ACTUALMENTE: ",n)
+      print("***************DETALLES***************")
       for i in range(0,n):
-            print("NÚMERO DE PERSONAS ACTUALMENTE: ",n)
-            print("***************DETALLES***************")
             coorde=[data[i]['x0'],data[i]['x1'],data[i]['y0'],data[i]['y1']]
             person_n = Person()
             person_n.id = data[i]['oid']
             person_n.coor = coorde
             person_n.describe()
       
+def muestra_caja(mensaje):
+      print(mensaje)
+      n=mensaje['person']
+      print("NÚMERO DE PERSONAS ACTUALMENTE: ",n)
+      print("***************DETALLES***************")
+
+def muestra_cola(mensaje):
+      print(mensaje)
+      n=mensaje['person']
+      print("NÚMERO DE PERSONAS ACTUALMENTE: ",n)
+      print("***************DETALLES***************")
