@@ -245,7 +245,9 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Usuario</span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                    src="{% static 'img/undraw_profile.svg' %}" >
+                                   
+
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -333,7 +335,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Personas en cola: </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">6</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id='cola'>{{texto}}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -632,6 +634,7 @@
             document.querySelector('#snapshot').src = data.url;
             document.querySelector('#imagen').href = data.url;
             document.querySelector('#caja').innerText = data.caja;
+            document.querySelector('#cola').innerText = data.cola;
         }
     </script>
 

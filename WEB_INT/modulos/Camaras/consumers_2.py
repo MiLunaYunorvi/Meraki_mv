@@ -32,9 +32,6 @@ def on_log(client,userdata,level,buf):
       print("log: ",buf)
 
 opcion=''
-message_o='hola'
-message_c='caja'
-message_co='cola'
 
 def on_message1(client, userdata, message):
     global message_c
@@ -56,7 +53,7 @@ def on_message1(client, userdata, message):
         print("No hay personas haciendo cola en la caja.")
 
 def on_message(client, userdata, message):
-    global message_o,message_co
+    global message_o
     global opcion
     #print(msg.topic+" "+str(msg.payload))
     #print(type(message.payload.decode("utf-8")))
@@ -69,32 +66,31 @@ def on_message(client, userdata, message):
             message_o=n
         else:
             opcion=2
-            message_co=(message['counts'])['person']
+            message_o=(message['counts'])['person']
         #mues_datos(message_o,opcion)
     except IndexError:
         print("No hay personas haciendo cola en la caja.")
 
 
-
-
-
+message_o='hola'
+message_c='caja'
 def inicio(broker,tiempo):
      #broker="192.168.0.104"
-    client0=mqtt.Client('WEB1')
-    client0.on_message=on_message
-    client0.on_connect=on_connect
-    client0.on_log=on_log
+    client=mqtt.Client('WEB1')
+    client.on_message=on_message
+    client.on_connect=on_connect
+    client.on_log=on_log
     print("Connecting to broker: ",broker)
-    client0.connect(broker)
-    client0.loop_start()
-    client0.subscribe("/merakimv/Q2FV-NX7G-MNB2/raw_detections")
+    client.connect(broker)
+    client.loop_start()
+    client.subscribe("/merakimv/Q2FV-NX7G-MNB2/raw_detections")
     time.sleep(tiempo)
-    client0.loop_stop()
+    client.loop_stop()
     #client.disconnect()
     return message_o
 
 def inicio2(broker,tiempo):
-    client=mqtt.Client('CAJA')
+    client=mqtt.Client('WEB1')
     client.on_message=on_message1
     client.on_connect=on_connect
     client.on_log=on_log
@@ -104,18 +100,6 @@ def inicio2(broker,tiempo):
     time.sleep(tiempo)
     client.loop_stop()
     return message_c
-    ######################################3
-
-def inicio3(broker,tiempo):
-    client2=mqtt.Client('COLA')
-    client2.on_message=on_message
-    client2.on_log=on_log
-    client2.connect(broker)
-    client2.loop_start()
-    client2.subscribe("/merakimv/Q2FV-NX7G-MNB2/779685685488517302")
-    time.sleep(tiempo)
-    client2.loop_stop()
-    return message_co
 
 url = "https://api.meraki.com/api/v1/devices/Q2FV-NX7G-MNB2/camera/generateSnapshot"
 payload = '''{ "fullframe": true }'''
@@ -143,14 +127,12 @@ class WSConsumer(WebsocketConsumer):
          self.accept()
          broker = '192.168.0.105'
          for i in range(10):
-            cadena= inicio(broker,1)
-            cadena_caja = inicio2(broker,1)
-            cadena_cola = inicio3(broker,1)
-            #print("La caja: ", cadena_caja, "La cola: ",cadena_cola)
+            cadena= inicio(broker,2)
+            cadena_caja= inicio2(broker,2)
             if cadena!=old:
                 url=snapshot()
             print("recibí: ",cadena)
-            self.send(json.dumps({'message':cadena,'url':url,'caja':cadena_caja,'cola':cadena_cola}))
+            self.send(json.dumps({'message':cadena,'url':url,'caja':cadena_caja}))
             #self.send(json.dumps({'url':url}))
             old=cadena
             
