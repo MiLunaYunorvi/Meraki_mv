@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#meraki_API_KEY = 0d7a8b4276fb04606fe0659a37e52dbba345e805
 """Django's command-line utility for administrative tasks."""
 import os
 import sys

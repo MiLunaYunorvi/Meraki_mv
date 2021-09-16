@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>"ESTE ES EL INDEX HTML"</p>
+    <h1 id="app">{{text}}</h1>
+    <img id="snapshot" src="https://spn21.meraki.com/stream/jpeg/snapshot/f8f089b296c213a1VHZjc2MjQ4YTNmYjEzNmViYjhmZGVkOWRkZWYwNGIxYzc1MzY1MjY5MzgyYTE2NjQxMGJmMjZiYzk4NDZmMzg2MypWEtjHZPnju01n9xvA2CRZLSwcT424DRg-F13PbvufBJ3j39CNSrEa17nWpvquUBO1034bhVbPIq6lbKuQcqvy-6DJgGjxh1yLqmKvAmvESXeYXVdPsNVPlj256qyFwfA-ytBJ_VXCzaS1oHbWT1pOZbcpj2B-kjubVVkIUTpeTrlCv6plEhcLokJFhWC2oYBQvsa7TQ_YVTDOUMYeKOk"/>
+
+    <script>
+        var socket = new WebSocket('ws://localhost:8000/ws/some_url/');
+        socket.onmessage=function(event)
+        {
+            var data =JSON.parse(event.data);
+            console.log(data);
+            document.querySelector('#app').innerText = data.message;
+            document.querySelector('#snapshot').src = data.url;
+        }
+    </script>
+
+
+</body>
+</html>

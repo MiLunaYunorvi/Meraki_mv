@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'modulos.Camaras',
-    'channels',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +57,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            "C:/Users/michluna/Desktop/PROYECTOS/MERAKI/MV_SENSE/Meraki_mv/WEB_INT/Templates"
+            "C:/Users/michluna/Desktop/PROYECTOS/MERAKI/MV_SENSE/Meraki_mv/WEB_INT/modulos/Camaras/templates"
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -71,8 +71,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'WEB_INT.wsgi.application'
 ASGI_APPLICATION = 'WEB_INT.asgi.application'
+WSGI_APPLICATION = 'WEB_INT.wsgi.application'
+
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -122,3 +123,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+#STATIC_ROOT = ''
