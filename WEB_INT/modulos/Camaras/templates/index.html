@@ -296,7 +296,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Total de personas: </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id='app'>{{text}}</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id='app'>{{texto}}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-child fa-2x text-gray-300"></i>
@@ -313,11 +313,11 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Personas en cola: </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">2</div>
+                                                Personas en caja: </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id='caja'>{{texto}}</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                                            <i class="fas fa-cash-register fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -332,11 +332,11 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Personas en caja: </div>
+                                                Personas en cola: </div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">6</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-cash-register fa-2x text-gray-300"></i>
+                                            <i class="fas fa-users fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -629,8 +629,9 @@
             var data =JSON.parse(event.data);
             console.log(data);
             document.querySelector('#app').innerText = data.message;
-            document.querySelector('#snapshot').src = data.url
+            document.querySelector('#snapshot').src = data.url;
             document.querySelector('#imagen').href = data.url;
+            document.querySelector('#caja').innerText = data.caja;
         }
     </script>
 
