@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'modulos.Camaras',
+    'modulos.Wireless',
+    'modulos.Camaras'
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            "C:/Users/michluna/Desktop/PROYECTOS/MERAKI/MV_SENSE/Meraki_mv/WEB_INT/modulos/Camaras/templates"
+            "C:/Users/michluna/Desktop/PROYECTOS/MERAKI/MV_SENSE/Meraki_mv/WEB_INT/modulos/Camaras/templates",
+            "C:/Users/michluna/Desktop/PROYECTOS/MERAKI/MV_SENSE/Meraki_mv/WEB_INT/modulos/Wireless/templates"
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -123,4 +125,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-#STATIC_ROOT = ''
+STATIC_ROOT = 'C:/Users/michluna/Desktop/PROYECTOS/MERAKI/MV_SENSE/Meraki_mv/WEB_INT/modulos/Camaras/static'

@@ -1,0 +1,335 @@
+{% extends "index.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">  
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-1 text-gray-600 text-center">DASHBOARD CÁMARAS</h1>
+        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+    </div>
+    <div class="mb-2 text-center"> 
+        <i class="fas fa-cash-register fa-2x text-primary"></i>
+        <span class="h4 mb-1 ml-2 text-primary ">CAJAS ABIERTAS</span>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+        
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-0">
+                            <div class="h5 font-weight-bold text-dark text-uppercase mb-0">
+                                CAJA 1 </div>
+                            <div class="h3 mb-0 font-weight-bold text-secondary text-center"  id='caja1'>{{estado}}</div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-0">
+                            <div class="h5 font-weight-bold text-dark text-uppercase mb-0">
+                                CAJA 2 </div>
+                            <div class="h3 mb-0 font-weight-bold text-secondary text-center"  id='caja2'>{{estado}}</div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-0">
+                            <div class="h5 font-weight-bold text-dark text-uppercase mb-0">
+                                CAJA 3 </div>
+                            <div class="h3 mb-0 font-weight-bold text-secondary text-center"  id='caja3'>{{estado}}</div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-0">
+                            <div class="h5 font-weight-bold text-dark text-uppercase mb-0">
+                                CAJA 4 </div>
+                            <div class="h3 mb-0 font-weight-bold text-secondary text-center"  id='caja4'>{{estado}}</div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-0">
+                            <div class="h5 font-weight-bold text-dark text-uppercase mb-0">
+                                CAJA 5 </div>
+                            <div class="h3 mb-0 font-weight-bold text-secondary text-center"  id='caja5'>{{estado}}</div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-0">
+                            <div class="h5 font-weight-bold text-dark text-uppercase mb-0">
+                                CAJA 6 </div>
+                            <div class="h3 mb-0 font-weight-bold text-secondary text-center"  id='caja6'>{{estado}}</div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- COLAS -->
+    <div class="mb-2 text-center"> 
+        <i class="fas fa-cash-register fa-2x text-primary"></i>
+        <span class="h4 mb-1 ml-2 text-primary ">PERSONAS EN COLA</span>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+        
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-0">
+                            <div class="h5 font-weight-bold text-dark text-uppercase mb-0">
+                                CAJA 1 </div>
+                            <div class="h3 mb-0 font-weight-bold text-secondary text-center"  id='cola1'>{{estado}}</div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-0">
+                            <div class="h5 font-weight-bold text-dark text-uppercase mb-0">
+                                CAJA 2 </div>
+                            <div class="h3 mb-0 font-weight-bold text-secondary text-center"  id='cola2'>{{estado}}</div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-0">
+                            <div class="h5 font-weight-bold text-dark text-uppercase mb-0">
+                                CAJA 3 </div>
+                            <div class="h3 mb-0 font-weight-bold text-secondary text-center"  id='cola3'>{{estado}}</div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-0">
+                            <div class="h5 font-weight-bold text-dark text-uppercase mb-0">
+                                CAJA 4 </div>
+                            <div class="h3 mb-0 font-weight-bold text-secondary text-center"  id='cola4'>{{estado}}</div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-0">
+                            <div class="h5 font-weight-bold text-dark text-uppercase mb-0">
+                                CAJA 5 </div>
+                            <div class="h3 mb-0 font-weight-bold text-secondary text-center"  id='cola5'>{{estado}}</div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-0">
+                            <div class="h5 font-weight-bold text-dark text-uppercase mb-0">
+                                CAJA 6 </div>
+                            <div class="h3 mb-0 font-weight-bold text-secondary text-center"  id='cola6'>{{estado}}</div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Content Row -->
+    <div class="row">
+        <!-- Illustrations -->
+        
+            <div class="card shadow mb-10 col-md-8 ">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
+                </div>
+                <div class="card-body ">
+                    <div class="chart-bar">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div></div>
+            <div class="card mb-4 col-md-2 bg-success text-white shadow ">
+                <div class="card-body text-center ">
+                    <div class="card-body h5 text-center">
+                        CAJA LIBRE
+                    </div>
+                    <div class="text-white h1 " id='min'>-</div>
+                </div>
+            </div>
+            <div class="card mb-4 col-md-2 bg-danger text-white shadow ">
+                <div class="card-body text-center ">
+                    <div class="card-body h5 text-center">
+                        CAJA LLENA
+                    </div>
+                    <div class="text-white h1 " id='max'>+</div>
+                </div>
+            </div>
+        
+    </div>
+
+</div>
+
+                <!-- Bootstrap core JavaScript-->
+                <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+                <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+                <!-- Core plugin JavaScript-->
+                <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+                <!-- Custom scripts for all pages-->
+                <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+                <!-- Page level plugins -->
+                <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+
+                <!-- Page level custom scripts -->
+                <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+                <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+
+<script>
+    console.log(window.location)
+    var loc = window.location
+    var wsStart = 'ws://'
+
+    var endpoint = wsStart + loc.host + loc.pathname
+    console.log(endpoint)
+
+    var socket = new WebSocket('ws://localhost:8000/ws/camaras/');
+    socket.onmessage=function(event)
+    {
+        var data =JSON.parse(event.data);
+        console.log(data);
+        function myFunction(p1) {
+            if (p1==0) {
+                y_n= "NO";
+            }else{
+                y_n="SI"
+            }
+            return y_n;   // The function returns the product of p1 and p2
+            }
+        document.querySelector('#caja1').innerText = myFunction(data.caja1);
+        document.querySelector('#caja2').innerText = myFunction(data.caja2);
+        document.querySelector('#caja3').innerText = myFunction(data.caja3);
+        document.querySelector('#caja4').innerText = myFunction(data.caja4);
+        document.querySelector('#caja5').innerText = myFunction(data.caja5);
+        document.querySelector('#caja6').innerText = myFunction(data.caja6);
+        document.querySelector('#cola1').innerText = data.cola1;
+        document.querySelector('#cola2').innerText = data.cola2;
+        document.querySelector('#cola3').innerText = data.cola3;
+        document.querySelector('#cola4').innerText = data.cola4;
+        document.querySelector('#cola5').innerText = data.cola5;
+        document.querySelector('#cola6').innerText = data.cola6;
+        document.querySelector('#min').innerText = data.min;
+        document.querySelector('#max').innerText = data.max;
+
+
+        var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+    labels: ["CAJA1", "CAJA2", "CAJA3", "CAJA4", "CAJA5", "CAJA6"],
+    datasets: [{
+    label: '# of Votes',
+    data: [data.cola1, data.cola2, data.cola3, data.cola4, data.cola5, data.cola6],
+    backgroundColor: [
+    'rgba(255, 99, 132, 0.2)',
+    'rgba(54, 162, 235, 0.2)',
+    'rgba(255, 206, 86, 0.2)',
+    'rgba(75, 192, 192, 0.2)',
+    'rgba(153, 102, 255, 0.2)',
+    'rgba(255, 159, 64, 0.2)'
+    ],
+    borderColor: [
+    'rgba(255,99,132,1)',
+    'rgba(54, 162, 235, 1)',
+    'rgba(255, 206, 86, 1)',
+    'rgba(75, 192, 192, 1)',
+    'rgba(153, 102, 255, 1)',
+    'rgba(255, 159, 64, 1)'
+    ],
+    borderWidth: 1
+    }]
+    },
+    options: {
+    scales: {
+    yAxes: [{
+    ticks: {
+    beginAtZero: true
+    }
+    }]
+    }
+    }
+    });
+    }
+</script>
+
+
+{% endblock %}

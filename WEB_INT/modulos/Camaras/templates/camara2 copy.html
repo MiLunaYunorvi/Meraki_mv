@@ -1,0 +1,128 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+        <div class="container-fluid">  
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">CAJA 2 - HOGAR</h1>
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Total de personas: </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id='app'>{{texto}}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-child fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Personas en caja: </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id='caja'>{{texto}}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-cash-register fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Pending Requests Card Example -->
+                        <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Personas en cola: </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id='cola'>{{texto}}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Row -->
+
+                    <div class="row">
+                         <!-- Illustrations -->
+                        <div class="col-xl-12 col-lg-7">
+                         <div class="card shadow mb-5">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Último snapshot</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="text-center">
+                                    <img id="snapshot" class="img-fluid px-6 px-sm-6 mt-6 mb-6" style="width: 25rem;"
+                                    src= "{% static 'img/colap_5.jpg' %}" alt="...">
+                                       
+                                </div>
+                                
+                                <hr>
+                                    <h5>Snapshot de la CAJA1 tomada a las
+                                    <code id="HoraActual"></code> horas.</h5> 
+                                <hr>
+                                <a id="imagen" target="_blank" rel="nofollow" href={}>Ver imagen en tamaño grande &rarr;</a>
+                            </div>
+                        </div>
+                        </div>
+                        
+        <script>
+            console.log(window.location)
+            var loc = window.location
+            var wsStart = 'ws://'
+            var url1 = 'hola'
+            var hora_n = hora()
+            
+            function hora(){
+                myDate = new Date();
+                var hora = myDate.getHours() + ':' + myDate.getMinutes() + ':' + myDate.getSeconds()
+                return hora
+            }
+            var socket = new WebSocket('ws://localhost:8000/ws/camaras/camara_par/');
+            
+            socket.onmessage=function(event)
+            {
+                var data =JSON.parse(event.data);
+                if (url1 != data.url)
+                {   
+                    hora_n=hora()
+                }
+                url1 = data.url
+                console.log(data);
+                document.querySelector('#app').innerText = data.message;
+                document.querySelector('#snapshot').src = data.url;
+                document.querySelector('#imagen').href = data.url;
+                document.querySelector('#caja').innerText = data.caja;
+                document.querySelector('#cola').innerText = data.cola;
+                document.querySelector('#HoraActual').innerText = hora_n;
+                //document.querySelector('#HoraActual').code = 3;
+            }
+        </script>
+{% endblock %}

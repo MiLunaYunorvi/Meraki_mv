@@ -16,8 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
+from modulos.Camaras.views import index
+#from WEB_INT.modulos.Camaras import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('modulos.Camaras.urls'))
-]
+    path('',index,name='index'),
+    #path('', include('modulos.Camaras.urls'),name='index'),
+    path('wireless/', include('modulos.Wireless.urls'),name='wireless'),
+    path('camaras/', include('modulos.Camaras.urls'),name='camaras')
+    ]
