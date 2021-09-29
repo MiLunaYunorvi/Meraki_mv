@@ -5,11 +5,14 @@
 {% block content %}
 <div class="container-fluid">  
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <div class="d-sm-flex justify-content-between mb-4"  style= 'text-align:center'>
         <h1 class="h3 mb-1 text-gray-600 text-center">DASHBOARD CÁMARAS</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+        
     </div>
+    <hr >
+            <h6>Datos actualizados a las 
+            <code id="HoraActual"></code> horas.</h6> 
+        <hr>
     <div class="mb-2 text-center"> 
         <i class="fas fa-cash-register fa-2x text-primary"></i>
         <span class="h4 mb-1 ml-2 text-primary ">CAJAS ABIERTAS</span>
@@ -20,7 +23,7 @@
         
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
+            <div class="card border-left-primary shadow h-100 py-2" id="color1">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-0">
@@ -34,7 +37,7 @@
             </div>
         </div>
         <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
+            <div class="card border-left-primary shadow h-100 py-2" id="color2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-0">
@@ -48,7 +51,7 @@
             </div>
         </div>
         <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
+            <div class="card border-left-primary shadow h-100 py-2" id="color3">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-0">
@@ -62,7 +65,7 @@
             </div>
         </div>
         <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
+            <div class="card border-left-primary shadow h-100 py-2" id="color4">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-0">
@@ -76,7 +79,7 @@
             </div>
         </div>
         <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
+            <div class="card border-left-primary shadow h-100 py-2" id="color5">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-0">
@@ -90,7 +93,7 @@
             </div>
         </div>
         <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
+            <div class="card border-left-primary shadow h-100 py-2" id="color6">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-0">
@@ -106,15 +109,48 @@
     </div>
     <!-- COLAS -->
     <div class="mb-2 text-center"> 
-        <i class="fas fa-cash-register fa-2x text-primary"></i>
+        <i class="fas fa-users  fa-2x text-primary"></i>
         <span class="h4 mb-1 ml-2 text-primary ">PERSONAS EN COLA</span>
     </div>
 
     <!-- Content Row -->
     <div class="row">
+        <!-- Illustrations -->
+        
+            <div class="card shadow mb-10 col-md-8 ">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Flujo de personas en cola</h6>
+                </div>
+                <div class="card-body ">
+                    <div class="chart-bar">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div></div>
+            <div class="card mb-4 col-md-2 bg-success text-white shadow ">
+                <div class="card-body text-center ">
+                    <div class="card-body h5 text-center">
+                        CAJA LIBRE
+                    </div>
+                    <div class="text-white h1 " id='min'>-</div>
+                </div>
+            </div>
+            <div class="card mb-4 col-md-2 bg-danger text-white shadow ">
+                <div class="card-body text-center ">
+                    <div class="card-body h5 text-center">
+                        CAJA LLENA
+                    </div>
+                    <div class="text-white h1 " id='max'>+</div>
+                </div>
+            </div>
+        
+    </div>
+    <!-- Content Row -->
+    <div class="row">
         
         <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-4 col-md-6 mb-4">
+        <div class="col-xl-4 col-md-6 mb-4 mt-4">
             <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -128,7 +164,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-4 col-md-6 mb-4">
+        <div class="col-xl-4 col-md-6 mb-4 mt-4">
             <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -142,7 +178,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-4 col-md-6 mb-4">
+        <div class="col-xl-4 col-md-6 mb-4 mt-4">
             <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -201,40 +237,6 @@
     </div>
 
 
-    <!-- Content Row -->
-    <div class="row">
-        <!-- Illustrations -->
-        
-            <div class="card shadow mb-10 col-md-8 ">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
-                </div>
-                <div class="card-body ">
-                    <div class="chart-bar">
-                        <canvas id="myChart"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div></div>
-            <div class="card mb-4 col-md-2 bg-success text-white shadow ">
-                <div class="card-body text-center ">
-                    <div class="card-body h5 text-center">
-                        CAJA LIBRE
-                    </div>
-                    <div class="text-white h1 " id='min'>-</div>
-                </div>
-            </div>
-            <div class="card mb-4 col-md-2 bg-danger text-white shadow ">
-                <div class="card-body text-center ">
-                    <div class="card-body h5 text-center">
-                        CAJA LLENA
-                    </div>
-                    <div class="text-white h1 " id='max'>+</div>
-                </div>
-            </div>
-        
-    </div>
-
 </div>
 
                 <!-- Bootstrap core JavaScript-->
@@ -262,33 +264,65 @@
     var endpoint = wsStart + loc.host + loc.pathname
     console.log(endpoint)
 
+    var hora_n = hora()
+    function hora(){
+        myDate = new Date();
+        hours = myDate.getHours();
+        minutes = myDate.getMinutes();
+        seconds = myDate.getSeconds();
+        if (hours < 10) hours = 0 + hours;
+        if (minutes < 10) minutes = "0" + minutes;
+        if (seconds < 10) seconds = "0" + seconds;
+        var hora = hours + ':' + minutes + ':' + seconds
+        return hora
+    }         
+           
+
     var socket = new WebSocket('ws://localhost:8000/ws/camaras/');
     socket.onmessage=function(event)
     {
         var data =JSON.parse(event.data);
         console.log(data);
+        
+        hora_n=hora()
         function myFunction(p1) {
             if (p1==0) {
                 y_n= "NO";
             }else{
                 y_n="SI"
             }
-            return y_n;   // The function returns the product of p1 and p2
+            return y_n;  
+        }
+        function color(p1){
+            if (p1==0) {
+                color_card= "card border-left-danger shadow h-100 py-2";
+            }else{
+                color_card="card border-left-success shadow h-100 py-2"
             }
+            return color_card;  
+        }
         document.querySelector('#caja1').innerText = myFunction(data.caja1);
+        document.querySelector('#color1').className = color(data.caja1);
         document.querySelector('#caja2').innerText = myFunction(data.caja2);
+        document.querySelector('#color2').className = color(data.caja2);
         document.querySelector('#caja3').innerText = myFunction(data.caja3);
+        document.querySelector('#color3').className = color(data.caja3);
         document.querySelector('#caja4').innerText = myFunction(data.caja4);
+        document.querySelector('#color4').className = color(data.caja4);
         document.querySelector('#caja5').innerText = myFunction(data.caja5);
+        document.querySelector('#color5').className = color(data.caja5);
         document.querySelector('#caja6').innerText = myFunction(data.caja6);
+        document.querySelector('#color6').className = color(data.caja6);
         document.querySelector('#cola1').innerText = data.cola1;
         document.querySelector('#cola2').innerText = data.cola2;
         document.querySelector('#cola3').innerText = data.cola3;
         document.querySelector('#cola4').innerText = data.cola4;
         document.querySelector('#cola5').innerText = data.cola5;
         document.querySelector('#cola6').innerText = data.cola6;
-        document.querySelector('#min').innerText = data.min;
-        document.querySelector('#max').innerText = data.max;
+        document.querySelector('#min').innerText = '#' + data.min;
+        document.querySelector('#max').innerText = '#'+ data.max;
+        document.querySelector('#HoraActual').innerText =  hora_n;
+
 
 
         var ctx = document.getElementById("myChart").getContext('2d');
@@ -297,7 +331,7 @@
     data: {
     labels: ["CAJA1", "CAJA2", "CAJA3", "CAJA4", "CAJA5", "CAJA6"],
     datasets: [{
-    label: '# of Votes',
+    label: '# de personas',
     data: [data.cola1, data.cola2, data.cola3, data.cola4, data.cola5, data.cola6],
     backgroundColor: [
     'rgba(255, 99, 132, 0.2)',

@@ -36,10 +36,12 @@ headers2 = {
 ################### VARIABLES GLOBALES ################
 
 opcion=''
-message_o='hola'
-message_c='caja'
-message_co='cola'
+message_o=0
+message_c=0
+message_co=0
+nf=0
 
+acumulado =[]
 default={'caja':[],'cola':[]}
 
 old = ' '
@@ -62,18 +64,25 @@ def on_log(client,userdata,level,buf):
 def on_message1(client, userdata, message):
     global message_c
     global opcion
+    global acumulado
     #print(msg.topic+" "+str(msg.payload))
     #print(type(message.payload.decode("utf-8")))
     try:
         message = json.loads(message.payload.decode("utf-8"))
         print(message)
         if 'objects' in message:
-            opcion=1
             n = len(message['objects'])
-            message_c=n
+            for i in range(n):
+                if message['objects'][i]['confidence'] >= 90:
+                    nf=nf+1
+            acumulado.append(nf)
+            message_c= mode(acumulado)
+            print(acumulado,message_c)
         else:
-            opcion=2
-            message_c=(message['counts'])['person']
+            n=(message['counts'])['person']
+            acumulado.append(n)
+            message_c=mode(acumulado)
+            print(acumulado,message_c)
         #mues_datos(message_o,opcion)
     except IndexError:
         print("No hay personas haciendo cola en la caja.")
@@ -81,18 +90,26 @@ def on_message1(client, userdata, message):
 def on_message(client, userdata, message):
     global message_o,message_co
     global opcion
+    global acumulado
+    nf=0
     #print(msg.topic+" "+str(msg.payload))
     #print(type(message.payload.decode("utf-8")))
     try:
         message = json.loads(message.payload.decode("utf-8"))
         print(message)
         if 'objects' in message:
-            opcion=1
             n = len(message['objects'])
-            message_o=n
+            for i in range(n):
+                if message['objects'][i]['confidence'] >= 90:
+                    nf=nf+1
+            acumulado.append(nf)
+            message_o= mode(acumulado)
+            print(acumulado,message_o)
         else:
-            opcion=2
-            message_co=(message['counts'])['person']
+            n=(message['counts'])['person']
+            acumulado.append(n)
+            message_o=mode(acumulado)
+            print(acumulado,message_o)
         #mues_datos(message_o,opcion)
     except IndexError:
         print("No hay personas haciendo cola en la caja.")
@@ -175,14 +192,30 @@ def bot(num):
     }
     requests.request("POST", url_webex, headers=headers, data=payload)
 
+def bot_cam(num,per):
+    url_sna = snapshot_estatico(1,per)
+    url_webex = "https://webexapis.com/v1/messages"
+    print(url_sna)
+    payload = json.dumps({
+    "roomId": "Y2lzY29zcGFyazovL3VzL1JPT00vOWQ4NmVlNzAtMWE3ZS0xMWVjLTliNzAtNTM1NjYyZTVkYzIz",
+    "text": '¡¡Se excedió el número de personas en la CAJA {}. ENVIEN REFUERZOS!!'.format(num),
+    "files": ["{}".format(url_sna)]
+    })
+    headers = {
+    'Authorization': 'Bearer YTg4OTVmYjktNWFkZS00YzA4LWFkNWItMjE5YTJkZDM1MjNmY2ZjOTFlZGItYmE1_PF84_1eb65fdf-9643-417f-9974-ad72cae0e10f',
+    'Content-Type': 'application/json'
+    }
+    requests.request("POST", url_webex, headers=headers, data=payload)
+
 def alarmas(diccionario):
     print(diccionario)
     for i in range(len(diccionario['caja'])):
         if(diccionario['caja'][i] != 0):
             r = (diccionario['cola'][i])/(diccionario['caja'][i])
-            if r >= 4:
-                pass
+            if r >=5 and i<=1:
                 bot(i+1)
+            elif r>=5 and i>1:
+                bot_cam(i+1,diccionario['cola'][i])
 
 def estado_caja():
     #import requests
@@ -195,26 +228,30 @@ def estado_caja():
     return estado
 
 def estado_variable():
-    
+    global acumulado
     #------------cam1-----------------#
     broker = '192.168.0.107'
-    #cadena_caja = int(inicio2(broker,1))
-    #cadena_cola = inicio3(broker,1)
-    cadena_caja=1
-    cadena_cola=3
+    acumulado=[]
+    total_1 = int(inicio(broker,2))
+    acumulado=[]
+    caja_1 = int(inicio2(broker,1))
+    cola_1= total_1 - caja_1
+    cajae = 0
+    colae= 0
     #_________________________________#
     global default
-    default['caja'] = [cadena_caja,randint(0,1),0,randint(1,3),randint(2,3),randint(1,4)]
-    default['cola'] = [cadena_cola,randint(0,4),randint(0,1),randint(5,10),8,randint(6,14)]
+    default['caja'] = [caja_1,randint(0,1),0,randint(1,3),randint(2,3),randint(1,4)]
+    default['cola'] = [cola_1,randint(0,4),randint(0,1),randint(5,10),8,randint(6,14)]
     return default
 
 ##################################################
 ################ WEBSOCKETS ######################           
 class WSConsumer_camaras(WebsocketConsumer):
     def connect(self):
+        global acumulado
         self.accept()
         l=[]
-        for j in range(5):
+        for j in range(3):
             # for i in range(3):
             #     estado = estado_caja()
             #     l.append(int(estado))
@@ -223,7 +260,7 @@ class WSConsumer_camaras(WebsocketConsumer):
             # else:
             #     final='NO'
             cajas=estado_variable()
-            
+            acumulado=[]
             libre = cajas['cola'].index((min(cajas['cola']))) + 1
             llen = cajas['cola'].index((max(cajas['cola']))) + 1
             web_message=json.dumps({'caja1':cajas['caja'][0],
@@ -251,35 +288,40 @@ class WSConsumer_camaras(WebsocketConsumer):
 
 class WSConsumer_cam1(WebsocketConsumer):
      def connect(self):
-         global old
-         url= '/static/img/cargando.jpg'
+         global acumulado
          self.accept()
-         broker = '192.168.0.105'
-         for i in range(25):
-            cadena= inicio(broker,1)
-            cadena_caja = inicio2(broker,1)
-            cadena_cola = inicio3(broker,1)
-            print("La caja: ", cadena_caja, "La cola: ",cadena_cola)
-            if i>0 and (i % 6 )==0:
-                url=snapshot_estatico(0,100)
+         broker = '192.168.0.107'
+         url=snapshot()
+         for i in range(4):
+            acumulado=[]
+            cadena= int(inicio(broker,1))
+            acumulado=[]
+            caja = int(inicio2(broker,1))
+            cola = cadena - caja
+            print("La caja: ", caja, "La cola: ",cola)
+            if i>0 and (i % 2 )==0:
+                url=snapshot()
                 print(i)
             #print("recibí: ",cadena)
-            self.send(json.dumps({'message':cadena,'url':url,'caja':cadena_caja,'cola':cadena_cola}))
+            self.send(json.dumps({'message':cadena,'url':url,'caja':caja,'cola':cola}))
             #self.send(json.dumps({'url':url}))
-            sleep(3)
+            sleep(5)
         
 class WSConsumer_cams_pa(WebsocketConsumer):
      def connect(self):
+         global acumulado
          caja=randint(1,2)
          cola=randint(1,5)
          global old
          url_s= snapshot_estatico(0,cola)
          self.accept()
-         for i in range(17):
+         for i in range(12):
+            acumulado=[]
             caja=randint(1,2)
+            acumulado=[]
             cola=randint(1,5)
             total=cola+caja
-            if i>0  and (i % 6 )==0:
+            if i>0  and (i % 4 )==0:
                 url_s=snapshot_estatico(0,cola)
                 print(i,url_s)
             #print("recibí: ",cadena)

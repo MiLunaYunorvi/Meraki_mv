@@ -5,4 +5,4 @@ from proceso import *
 broker= '192.168.0.105'
 
 cadena=inicio(broker,3)
-print("cadena",cadena)
+

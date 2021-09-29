@@ -99,12 +99,19 @@
             var wsStart = 'ws://'
             var url1 = 'hola'
             var hora_n = hora()
-            
+
             function hora(){
                 myDate = new Date();
-                var hora = myDate.getHours() + ':' + myDate.getMinutes() + ':' + myDate.getSeconds()
+                hours = myDate.getHours();
+                minutes = myDate.getMinutes();
+                seconds = myDate.getSeconds();
+                if (hours < 10) hours = 0 + hours;
+                if (minutes < 10) minutes = "0" + minutes;
+                if (seconds < 10) seconds = "0" + seconds;
+                var hora = hours + ':' + minutes + ':' + seconds
                 return hora
-            }
+            }   
+              
             var socket = new WebSocket('ws://localhost:8000/ws/camaras/camara_par/');
             
             socket.onmessage=function(event)

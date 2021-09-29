@@ -1,5 +1,4 @@
 from .views import wireless
-from modulos.Camaras.views import index
 from django.urls import path
 
 
